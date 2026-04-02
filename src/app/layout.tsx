@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Onvo",
@@ -14,26 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <div
-          style={{
-            display: "flex",
-            minHeight: "100vh",
-            backgroundColor: "var(--color-bg)",
-          }}
-        >
-          <Sidebar />
-          <main
-            style={{
-              flex: 1,
-              backgroundColor: "var(--color-content-bg)",
-              overflowY: "auto",
-            }}
-          >
-            {children}
-          </main>
-        </div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

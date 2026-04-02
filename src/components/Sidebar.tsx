@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "@slate-ui/react";
+import { createClient } from "@/lib/supabase/client";
 
 const navItems = [
   { label: "Dashboard", href: "/" },
@@ -12,6 +14,14 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  async function handleLogout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
 
   return (
     <aside
@@ -68,6 +78,19 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Logout */}
+      <div style={{ padding: "16px 24px" }}>
+        <Button
+          variant="ghost"
+          size="sm"
+          fullWidth
+          onClick={handleLogout}
+          style={{ justifyContent: "flex-start", color: "var(--color-muted)" }}
+        >
+          Sign out
+        </Button>
+      </div>
     </aside>
   );
 }
